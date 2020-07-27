@@ -19,5 +19,4 @@
 
         <activity android:name=".ui.note.NoteActivity"/>
     </application>
-
 </manifest>

@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:677275795682:android:7e0d184f54b49eca945ebb",
+        "mobilesdk_app_id": "1:677275795682:android:07aa0086ba2a1fac945ebb",
         "android_client_info": {
           "package_name": "com.geekbrains.android.notes"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "677275795682-2nickbmdtnatf5ch6bcbndvat1pjn6g3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.geekbrains.android.notes",
+            "certificate_hash": "2d730e643a965bc9ea31e5c898d729ff279a7dc9"
+          }
+        },
         {
           "client_id": "677275795682-fuquf7os38p0mbnd7pmnqlq7t6sv3m89.apps.googleusercontent.com",
           "client_type": 3
