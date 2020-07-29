@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/card_view_margin">
+    android:layout_margin="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,17 +15,18 @@
             android:id="@+id/textView_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/text_view_indent"
-            android:layout_marginTop="@dimen/text_view_indent"
-            android:layout_marginEnd="@dimen/text_view_indent"
-            tools:text="@string/very_important_note" />
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:text="Very important note"/>
 
         <TextView
             android:id="@+id/textView_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_view_indent"
-            tools:text="@string/very_important_text" />
+            android:layout_margin="8dp"
+            tools:text="My very important note text with very important information"/>
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
