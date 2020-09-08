@@ -3,14 +3,11 @@ package com.geekbrains.android.notes.ui.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.android.notes.R
-import com.geekbrains.android.notes.data.common.getColor
+import com.geekbrains.android.notes.common.getColorInt
 import com.geekbrains.android.notes.data.entity.Note
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.activity_note.*
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_note.view.*
 
 class NotesRecyclerViewAdapter(val onItemClick: ((Note) -> Unit)? = null) : RecyclerView.Adapter<NotesRecyclerViewAdapter.ViewHolder>() {
@@ -33,12 +30,12 @@ class NotesRecyclerViewAdapter(val onItemClick: ((Note) -> Unit)? = null) : Recy
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
             holder.bind(notes[position])
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView ), LayoutContainer {
         fun bind(note: Note) = with(itemView) {
             textView_title.text = note.title
             textView_text.text = note.text
 
-            setBackgroundColor(note.color.getColor(context))
+            setBackgroundColor(note.color.getColorInt(context))
 
             setOnClickListener {
                 onItemClick?.invoke(note)

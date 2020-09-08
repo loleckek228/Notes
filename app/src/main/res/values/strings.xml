@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Notes</string>
-    <string name="new_note">Hoвая заметка</string>
+    <string name="note_new">Hoвая заметка</string>
     <string name="logout_title">Выход</string>
     <string name="logout_message">Вы уверены?</string>
-    <string name="logout_ok">Да</string>
-    <string name="logout_cancel">Нет</string>
+    <string name="positiveButton_ok">Да</string>
+    <string name="negativeButton_cancel">Нет</string>
     <string name="logout_menu_title">Выход</string>
+    <string name="note_change_color">Цвет</string>
+    <string name="note_delete">Удалить</string>
+    <string name="note_delete_message">Удалить заметку?</string>
 </resources>
