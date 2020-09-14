@@ -19,7 +19,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
+class NoteActivity : BaseActivity<NoteViewState>() {
 
     companion object {
         const val EXTRA_NOTE = "extra.NOTE"
@@ -61,7 +61,7 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
         }
     }
 
-    override fun renderData(data: NoteViewState.Data) {
+    override fun renderData(data: NoteViewState) {
         if(data.isDeleted) finish()
 
         this.note = data.note
