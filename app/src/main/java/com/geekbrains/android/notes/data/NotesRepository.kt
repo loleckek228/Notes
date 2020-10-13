@@ -9,4 +9,5 @@ object NotesRepository {
     fun getNotes() = dataSource.subscribeToAllNotes()
     fun getNoteById(id: String) = dataSource.getNoteById(id)
     fun saveNote(note: Note) = dataSource.saveNote(note)
+    fun getCurrentUser() = dataSource.getCurrentUser()
 }

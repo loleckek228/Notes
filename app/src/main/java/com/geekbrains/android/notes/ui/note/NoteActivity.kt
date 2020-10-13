@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import com.geekbrains.android.notes.R
+import com.geekbrains.android.notes.data.common.getColor
 import com.geekbrains.android.notes.data.entity.Note
 import com.geekbrains.android.notes.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_note.*
@@ -73,15 +74,7 @@ class NoteActivity : BaseActivity<Note?, NoteViewState>() {
         note?.let {
             textInputEditText_title.setText(it.title)
             editText_body.setText(it.text)
-            val color = when (it.color) {
-                Note.Color.WHITE -> R.color.white
-                Note.Color.YELLOW -> R.color.yellow
-                Note.Color.GREEN -> R.color.green
-                Note.Color.BLUE -> R.color.blue
-                Note.Color.RED -> R.color.red
-                Note.Color.VIOLET -> R.color.violet
-            }
-            toolbar.setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
+            toolbar.setBackgroundColor(it.color.getColor(this))
         }
 
         textInputEditText_title.addTextChangedListener(textChangeListener)

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.android.notes.R
+import com.geekbrains.android.notes.data.common.getColor
 import com.geekbrains.android.notes.data.entity.Note
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.activity_note.*
@@ -37,15 +38,7 @@ class NotesRecyclerViewAdapter(val onItemClick: ((Note) -> Unit)? = null) : Recy
             textView_title.text = note.title
             textView_text.text = note.text
 
-            val color = when (note.color) {
-                Note.Color.WHITE -> R.color.white
-                Note.Color.YELLOW -> R.color.yellow
-                Note.Color.GREEN -> R.color.green
-                Note.Color.BLUE -> R.color.blue
-                Note.Color.RED -> R.color.red
-                Note.Color.VIOLET -> R.color.violet
-            }
-            setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
+            setBackgroundColor(note.color.getColor(context))
 
             setOnClickListener {
                 onItemClick?.invoke(note)

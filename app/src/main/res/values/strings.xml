@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Notes</string>
-    <string name="press_button">Press Button</string>
-    <string name="pressed_button">Button was pressed</string>
-    <string name="very_important_note">Very important note</string>
-    <string name="very_important_text">My very important note text with very important information</string>
-    <string name="new_note">Новая заметка</string>
+    <string name="new_note">Hoвая заметка</string>
+    <string name="logout_title">Выход</string>
+    <string name="logout_message">Вы уверены?</string>
+    <string name="logout_ok">Да</string>
+    <string name="logout_cancel">Нет</string>
+    <string name="logout_menu_title">Выход</string>
 </resources>
