@@ -10,28 +10,61 @@ import com.firebase.ui.auth.AuthUI
 import com.geekbrains.android.notes.R
 import com.geekbrains.android.notes.data.error.NoAuthException
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.consumeEach
+import kotlin.coroutines.CoroutineContext
 
-abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
+abstract class BaseActivity<S> : AppCompatActivity(), CoroutineScope {
 
     companion object {
         private const val RC_SIGNIN = 4242
     }
 
-    abstract val viewModel: BaseViewModel<T, S>
+    override val coroutineContext: CoroutineContext by lazy {
+        Dispatchers.Main + Job()
+    }
+
+    private lateinit var dataJob: Job
+    private lateinit var errorJob: Job
+
+    abstract val viewModel: BaseViewModel<S>
     abstract val layoutRes: Int?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         layoutRes?.let {
             setContentView(it)
         }
-        setSupportActionBar(toolbar)
+    }
 
-        viewModel.getViewStateLiveData().observe(this, Observer { state ->
-            state.error?.let {
+    override fun onStart() {
+        super.onStart()
+
+        dataJob = launch {
+            viewModel.getViewState().consumeEach {
+                renderData(it)
+            }
+        }
+
+        errorJob = launch {
+            viewModel.getErrorChannel().consumeEach {
                 renderError(it)
-            } ?: renderData(state.data)
-        })
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        dataJob.cancel()
+        errorJob.cancel()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        coroutineContext.cancel()
     }
 
     protected fun renderError(error: Throwable?) {
@@ -47,7 +80,7 @@ abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
-    abstract fun renderData(data: T)
+    abstract fun renderData(data: S)
 
     fun startLogin() {
 
@@ -62,13 +95,12 @@ abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
                         .setLogo(R.drawable.note)
                         .setTheme(R.style.LoginStyle)
                         .setAvailableProviders(providers)
-                        .build()
-                , RC_SIGNIN
+                        .build(), RC_SIGNIN
         )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == RC_SIGNIN && resultCode != Activity.RESULT_OK){
+        if (requestCode == RC_SIGNIN && resultCode != Activity.RESULT_OK) {
             finish()
             return
         }

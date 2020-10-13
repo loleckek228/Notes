@@ -5,8 +5,8 @@ import com.geekbrains.android.notes.data.entity.Note
 
 class NotesRepository(val provider: IDataSource) {
     fun getNotes() = provider.subscribeToAllNotes()
-    fun getNoteById(id: String) = provider.getNoteById(id)
-    fun saveNote(note: Note) = provider.saveNote(note)
-    fun getCurrentUser() = provider.getCurrentUser()
-    fun deleteNote(noteId: String) = provider.deleteNote(noteId)
+    suspend fun getNoteById(id: String) = provider.getNoteById(id)
+    suspend fun saveNote(note: Note) = provider.saveNote(note)
+    suspend fun getCurrentUser() = provider.getCurrentUser()
+    suspend fun deleteNote(noteId: String) = provider.deleteNote(noteId)
 }
