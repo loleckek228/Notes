@@ -1,14 +1,12 @@
 package com.geekbrains.android.notes.ui.main
 
 import android.os.Bundle
-import android.widget.GridLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.geekbrains.android.notes.R
+import com.geekbrains.android.notes.ui.note.NoteActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +21,9 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        adapter = NotesRecyclerViewAdapter()
+        adapter = NotesRecyclerViewAdapter {
+            NoteActivity.start(this, it)
+        }
 
         notes_recyclerView.layoutManager = GridLayoutManager(this, 2)
         notes_recyclerView.adapter = adapter
@@ -31,5 +31,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.viewState().observe(this, Observer { state ->
             state?.let { adapter.notes = it.notes }
         })
+
+        floatingButton.setOnClickListener{
+            NoteActivity.start(this, null)
+        }
     }
 }
