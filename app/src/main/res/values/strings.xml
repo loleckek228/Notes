@@ -2,4 +2,6 @@
     <string name="app_name">Notes</string>
     <string name="press_button">Press Button</string>
     <string name="pressed_button">Button was pressed</string>
+    <string name="very_important_note">Very important note</string>
+    <string name="very_important_text">My very important note text with very important information</string>
 </resources>
