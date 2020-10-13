@@ -53,7 +53,7 @@ class FirebaseDataSource(val store: FirebaseFirestore, val auth: FirebaseAuth) :
     override fun saveNote(note: Note): LiveData<NoteResult> = MutableLiveData<NoteResult>().apply {
         try {
             getUserNotesCollection().document(note.id).set(note)
-                    .addOnSuccessListener { snapshot ->
+                    .addOnSuccessListener {
                         value = NoteResult.Success(note)
                     }.addOnFailureListener {
                         value = NoteResult.Error(it)
@@ -73,7 +73,7 @@ class FirebaseDataSource(val store: FirebaseFirestore, val auth: FirebaseAuth) :
     override fun deleteNote(noteId: String): LiveData<NoteResult> = MutableLiveData<NoteResult>().apply {
         try {
             getUserNotesCollection().document(noteId).delete()
-                    .addOnSuccessListener { snapshot ->
+                    .addOnSuccessListener {
                         value = NoteResult.Success(null)
                     }.addOnFailureListener {
                         value = NoteResult.Error(it)
