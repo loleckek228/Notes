@@ -2,7 +2,6 @@ package com.geekbrains.android.notes.ui.main
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.geekbrains.android.notes.R
@@ -17,10 +16,10 @@ class LogoutDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = AlertDialog.Builder(context!!)
             .setTitle(getString(R.string.logout_title))
             .setMessage(getString(R.string.logout_message))
-            .setPositiveButton(R.string.logout_ok) { dialog, which ->
+            .setPositiveButton(R.string.positiveButton_ok) { dialog, which ->
                 (activity as LogoutListener).onLogout()
             }
-            .setNegativeButton(R.string.logout_cancel) { dialog, which ->
+            .setNegativeButton(R.string.negativeButton_cancel) { dialog, which ->
                 dismiss()
             }
             .create()

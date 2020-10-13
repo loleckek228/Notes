@@ -1,8 +1,7 @@
-package com.geekbrains.android.notes.data.provider
+package com.geekbrains.android.notes.data.dataSource
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.geekbrains.android.notes.data.DataSource
 import com.geekbrains.android.notes.data.model.NoteResult
 import com.geekbrains.android.notes.data.entity.Note
 import com.geekbrains.android.notes.data.entity.User
@@ -10,16 +9,14 @@ import com.geekbrains.android.notes.data.error.NoAuthException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FirestoreProvider : DataSource {
+class FirebaseDataSource(val store: FirebaseFirestore, val auth: FirebaseAuth) : IDataSource {
     companion object {
         private const val NOTES_COLLECTION = "notes"
         private const val USERS_COLLECTION = "users"
     }
 
-    private val store = FirebaseFirestore.getInstance()
-
     private val currentUser
-        get() = FirebaseAuth.getInstance().currentUser
+        get() = auth.currentUser
 
     private fun getUserNotesCollection() = currentUser?.let {
         store.collection(USERS_COLLECTION).document(it.uid).collection(NOTES_COLLECTION)
@@ -71,5 +68,18 @@ class FirestoreProvider : DataSource {
             User(it.displayName ?: "", it.email ?: "")
         }
 
+    }
+
+    override fun deleteNote(noteId: String): LiveData<NoteResult> = MutableLiveData<NoteResult>().apply {
+        try {
+            getUserNotesCollection().document(noteId).delete()
+                    .addOnSuccessListener { snapshot ->
+                        value = NoteResult.Success(null)
+                    }.addOnFailureListener {
+                        value = NoteResult.Error(it)
+                    }
+        } catch (e: Throwable) {
+            value = NoteResult.Error(e)
+        }
     }
 }

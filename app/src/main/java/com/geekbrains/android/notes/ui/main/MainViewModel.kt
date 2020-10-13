@@ -6,7 +6,7 @@ import com.geekbrains.android.notes.data.NotesRepository
 import com.geekbrains.android.notes.data.entity.Note
 import com.geekbrains.android.notes.ui.base.BaseViewModel
 
-class MainViewModel : BaseViewModel<List<Note>?, MainViewState>() {
+class MainViewModel(val repository: NotesRepository) : BaseViewModel<List<Note>?, MainViewState>() {
 
     private val notesObserver = Observer { result: NoteResult ->
         when(result){
@@ -15,13 +15,12 @@ class MainViewModel : BaseViewModel<List<Note>?, MainViewState>() {
         }
     }
 
-    private val repositoryNotes = NotesRepository.getNotes()
+    private val repositoryNotes = repository.getNotes()
 
     init {
         viewStateLiveData.value = MainViewState()
         repositoryNotes.observeForever(notesObserver)
     }
-
 
     override fun onCleared() {
         super.onCleared()

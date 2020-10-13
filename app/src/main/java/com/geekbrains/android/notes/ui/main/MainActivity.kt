@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.firebase.ui.auth.AuthUI
 import com.geekbrains.android.notes.R
@@ -15,8 +14,9 @@ import com.geekbrains.android.notes.ui.base.BaseActivity
 import com.geekbrains.android.notes.ui.note.NoteActivity
 import com.geekbrains.android.notes.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.LogoutListener  {
+class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.LogoutListener {
 
     companion object {
         fun start(context: Context) = Intent(context, MainActivity::class.java).apply {
@@ -24,10 +24,7 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.Lo
         }
     }
 
-    override val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
-
+    override val viewModel: MainViewModel by viewModel()
     override val layoutRes = R.layout.activity_main
     lateinit var adapter: NotesRecyclerViewAdapter
 
@@ -35,7 +32,7 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.Lo
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
 
-        notes_recyclerView.layoutManager = GridLayoutManager(this, 2)
+        notes_recyclerView.layoutManager = GridLayoutManager(this, 1)
         adapter = NotesRecyclerViewAdapter() {
             NoteActivity.start(this, it.id)
         }
@@ -62,7 +59,7 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.Lo
 
     private fun showLogoutDialog() {
         supportFragmentManager.findFragmentByTag(LogoutDialog.TAG)
-                ?:   LogoutDialog.createInstance().show(supportFragmentManager, LogoutDialog.TAG)
+                ?: LogoutDialog.createInstance().show(supportFragmentManager, LogoutDialog.TAG)
     }
 
     override fun onLogout() {

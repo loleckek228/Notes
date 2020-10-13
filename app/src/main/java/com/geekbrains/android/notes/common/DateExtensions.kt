@@ -1,4 +1,4 @@
-package com.geekbrains.android.notes.data.common
+package com.geekbrains.android.notes.common
 
 import java.text.SimpleDateFormat
 import java.util.*

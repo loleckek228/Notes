@@ -1,13 +1,12 @@
 package com.geekbrains.android.notes.data
 
+import com.geekbrains.android.notes.data.dataSource.IDataSource
 import com.geekbrains.android.notes.data.entity.Note
-import com.geekbrains.android.notes.data.provider.FirestoreProvider
 
-object NotesRepository {
-    private val dataSource: DataSource = FirestoreProvider()
-
-    fun getNotes() = dataSource.subscribeToAllNotes()
-    fun getNoteById(id: String) = dataSource.getNoteById(id)
-    fun saveNote(note: Note) = dataSource.saveNote(note)
-    fun getCurrentUser() = dataSource.getCurrentUser()
+class NotesRepository(val provider: IDataSource) {
+    fun getNotes() = provider.subscribeToAllNotes()
+    fun getNoteById(id: String) = provider.getNoteById(id)
+    fun saveNote(note: Note) = provider.saveNote(note)
+    fun getCurrentUser() = provider.getCurrentUser()
+    fun deleteNote(noteId: String) = provider.deleteNote(noteId)
 }
