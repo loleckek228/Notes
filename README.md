@@ -3,5 +3,5 @@
 ### Язык: Kotlin
 ---
 #### Android приложение для заметок на Kotlin с возможностью сохранения и синхронизации заметок в облаке, регистрации разных пользователей и возможностью входить в приложение под своей учетной записью.
-#### В проекте используется: MVVP,  Сoroutines, Material Design, Koin, Firebase-Firestore, Firebase-Auth, Mockk
+#### В проекте используется: MVVP,  Сoroutines, Material Design, Koin, Firebase-Firestore, Firebase-Auth, Mockk.
 ---
